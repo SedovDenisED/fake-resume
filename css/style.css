@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+@import url('_header.css');
+@import url('_footer.css');
+@import url('_index.css');
+@import url('_resume.css');
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    background: #0a192f;
+    color: #ccd6f6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+.container.breakpoints {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    min-height: 120px;
+    margin-bottom: 100px;
+    padding-top: 35px;
+}
+
+.main {
+    min-height: 300px;
+    margin-bottom: 20px;
+    padding: 30px;
+    flex: 1 0 auto;
+}
+
+.footer {
+    min-height: 200px;
+    flex-shrink: 0;
+}
+
+.block {
+    align-content: center;
+}
+
+@media (max-width: 767.98px) {
+    .main {
+        padding: 10px 0 10px 0;
+        margin-bottom: 10px;
+    }
+
+    .container.breakpoints {
+        padding: 0;
+    }
+
+    .header {
+        min-height: 70px;
+        margin-bottom: 40px;
+        padding-top: 16px;
+    }
+}

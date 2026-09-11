@@ -1,0 +1,94 @@
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #00aa81;
+    color: #00aa81;
+    width: 60px;
+    height: 45px;
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 24px;
+    background: none;
+    box-sizing: border-box;
+
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.logo-container a {
+    text-decoration: none;
+    color: #00aa81;
+}
+
+.logo-container a:hover {
+    background: rgba(100, 255, 218, 0.08);
+    color: #8892b0;
+}
+
+.main-menu {
+}
+
+.main-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.main-menu li {
+    color: #00aa81;
+    font-size: 20px;
+    font-family: 'Inter', monospace;
+    font-weight: 400;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color 0.15s;
+}
+
+.main-menu li span {
+    color: #00aa81;
+    margin-right: 4px;
+    font-family: 'Inter', monospace;
+}
+
+.main-menu a {
+    text-decoration: none;
+    color: #00aa81;
+}
+
+.main-menu a:hover {
+    color: #8892b0;
+}
+
+.main-menu .md-button {
+    @media (max-width: 767.98px ) {
+        border: 1px solid #00aa81;
+        border-radius: 8px;
+        padding: 6px 16px;
+        width: 100%;
+    }
+}
+
+.main-menu .resume-btn {
+    height: 45px;
+    color: #00aa81;
+    border: 1px solid #00aa81;
+    border-radius: 8px;
+    padding: 6px 16px;
+    text-decoration: none;
+    font-weight: 400;
+    margin-left: 8px;
+    transition: background 0.2s, color 0.2s;
+    background: transparent;
+}
+
+.main-menu .resume-btn:hover {
+    background: rgba(100, 255, 218, 0.08);
+    color: #8892b0;
+}
