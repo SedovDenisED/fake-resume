@@ -1,0 +1,7 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+panel/data/*.db
+panel/data/singbox-users.json
+.DS_Store

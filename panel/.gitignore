@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+data/*.db
+data/singbox-users.json
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/

@@ -1,0 +1,39 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "inbounds": [
+    {
+      "type": "vless",
+      "tag": "vless-xhttp-in",
+      "listen": "10.66.66.1",
+      "listen_port": 10000,
+      "users": [
+        {
+          "name": "iphone-1",
+          "uuid": "REPLACE_CLIENT_UUID"
+        }
+      ],
+      "transport": {
+        "type": "xhttp",
+        "path": "/REPLACE_SECRET_PATH",
+        "mode": "auto"
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "inbound": ["vless-xhttp-in"],
+        "outbound": "direct"
+      }
+    ]
+  }
+}

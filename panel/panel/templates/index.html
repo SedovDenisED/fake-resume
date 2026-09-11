@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Клиенты — Panel</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <h1>Клиенты Happ</h1>
+        <p class="muted">{{ vless_host }} · path <code>{{ vless_path }}</code> · лимит {{ max_clients }}</p>
+      </div>
+      <div class="row">
+        <button class="btn" type="button" id="passkey-register">Добавить Face ID</button>
+        <form method="post" action="/logout"><button class="btn" type="submit">Выйти</button></form>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Новый клиент</h2>
+      <form method="post" action="/clients" class="row">
+        <div style="flex:1;min-width:160px;">
+          <label for="name">Имя</label>
+          <input id="name" name="name" type="text" required maxlength="64" placeholder="iphone-1">
+        </div>
+        <div style="flex:2;min-width:200px;">
+          <label for="remark">Заметка</label>
+          <input id="remark" name="remark" type="text" maxlength="128" placeholder="телефон Дениса">
+        </div>
+        <div style="align-self:flex-end;">
+          <button class="btn" type="submit">Создать</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Список</h2>
+      {% if not rows %}
+        <p class="muted">Пока пусто. Создай первого клиента здесь или вручную в sing-box.</p>
+      {% else %}
+      <table>
+        <thead>
+          <tr>
+            <th>Имя</th>
+            <th>UUID / ссылка</th>
+            <th>QR</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+          <tr>
+            <td>
+              <strong>{{ row.client.name }}</strong><br>
+              <span class="muted">{{ row.client.remark }}</span>
+            </td>
+            <td>
+              <div class="mono">{{ row.client.uuid }}</div>
+              <div class="mono muted" style="margin-top:6px;">{{ row.link }}</div>
+            </td>
+            <td>
+              <img class="qr" src="/clients/{{ row.client.id }}/qr" alt="QR {{ row.client.name }}">
+            </td>
+            <td>
+              <form method="post" action="/clients/{{ row.client.id }}/rotate" style="margin-bottom:8px;">
+                <button class="btn" type="submit">Ротация UUID</button>
+              </form>
+              <form method="post" action="/clients/{{ row.client.id }}/delete"
+                    onsubmit="return confirm('Удалить {{ row.client.name }}?');">
+                <button class="btn btn-danger" type="submit">Удалить</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+      <p class="muted" style="margin-top:16px;">
+        После изменений обнови <code>users</code> в sing-box из
+        <code>panel/data/singbox-users.json</code> и перезапусти сервис (или задай <code>RELOAD_HOOK</code>).
+      </p>
+    </div>
+  </div>
+  <script src="/static/webauthn.js"></script>
+</body>
+</html>
