@@ -1,0 +1,14 @@
+[Unit]
+Description=AmneziaWG relay home↔YC (awg-relay)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/bash -c '/usr/bin/awg-quick down awg-relay 2>/dev/null || true; /usr/bin/awg-quick up awg-relay'
+ExecStartPost=/bin/systemctl --no-block restart sing-box
+ExecStop=/usr/bin/awg-quick down awg-relay
+
+[Install]
+WantedBy=multi-user.target

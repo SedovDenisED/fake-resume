@@ -19,7 +19,7 @@ def build_share_link(client: Client) -> str:
     path = settings.vless_path if settings.vless_path.startswith("/") else f"/{settings.vless_path}"
     query = (
         f"encryption=none&security=tls&sni={quote(settings.vless_sni)}"
-        f"&type=xhttp&path={quote(path)}&host={quote(settings.vless_sni)}"
+        f"&type=ws&host={quote(settings.vless_sni)}&path={quote(path)}"
     )
     name = quote(client.name or client.remark or "client")
     return f"vless://{client.uuid}@{settings.vless_host}:{settings.vless_port}?{query}#{name}"

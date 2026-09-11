@@ -21,7 +21,7 @@ panel/           # FastAPI: клиенты Happ, QR/ссылки, логи
 
 | Было | Станет |
 | --- | --- |
-| AmneziaWG → `YC:51820/udp` → DNAT → дом `awg1` | Happ → `resume.sde-lab.ru:443` (VLESS + XHTTP) → дом |
+| AmneziaWG → `YC:51820/udp` → DNAT → дом `awg1` | Happ → `resume.sde-lab.ru:443` (VLESS + WebSocket) → дом |
 | Нестабильно в части локаций | UDP `51820` остаётся **резервом** |
 
 ## Схема трафика
@@ -30,7 +30,7 @@ panel/           # FastAPI: клиенты Happ, QR/ссылки, логи
 [ iPhone + Happ ]
        |
        | HTTPS TCP 443 / TLS (SNI: resume.sde-lab.ru)
-       | VLESS + XHTTP, секретный path
+       | VLESS + WebSocket, секретный path
        v
 [ Yandex Cloud VPS ]  IP постоянный, preemptible (+ авторестарт)
        |
@@ -62,13 +62,13 @@ panel/           # FastAPI: клиенты Happ, QR/ссылки, логи
 
 ### Дом
 
-- sing-box: VLESS + XHTTP (только с YC по AWG).
+- sing-box: VLESS + WebSocket (только с YC по AWG; официальный sing-box без xhttp).
 - FastAPI-панель: клиенты Happ, QR/ссылка, логи.
 - Первый клиент — вручную с дома.
 
 ### Клиенты
 
-- iOS, Happ: Address/SNI `resume.sde-lab.ru`, Port `443`, XHTTP, секретный path.
+- iOS, Happ: Address/SNI `resume.sde-lab.ru`, Port `443`, WebSocket, секретный path.
 
 ### Скрытый вход в панель
 

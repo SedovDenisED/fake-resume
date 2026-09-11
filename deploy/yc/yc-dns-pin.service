@@ -1,0 +1,13 @@
+[Unit]
+Description=Pin public DNS on eth0 for Caddy/LE (avoid dead awgyc DNS)
+After=network-online.target systemd-resolved.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/resolvectl dns eth0 10.130.0.2 1.1.1.1 8.8.8.8
+ExecStart=/usr/bin/resolvectl domain eth0 ru-central1.internal auto.internal '~.'
+
+[Install]
+WantedBy=multi-user.target

@@ -6,7 +6,7 @@
   "inbounds": [
     {
       "type": "vless",
-      "tag": "vless-xhttp-in",
+      "tag": "vless-ws-in",
       "listen": "10.66.66.1",
       "listen_port": 10000,
       "users": [
@@ -16,9 +16,11 @@
         }
       ],
       "transport": {
-        "type": "xhttp",
+        "type": "ws",
         "path": "/REPLACE_SECRET_PATH",
-        "mode": "auto"
+        "headers": {
+          "Host": "resume.sde-lab.ru"
+        }
       }
     }
   ],
@@ -31,7 +33,7 @@
   "route": {
     "rules": [
       {
-        "inbound": ["vless-xhttp-in"],
+        "inbound": ["vless-ws-in"],
         "outbound": "direct"
       }
     ]

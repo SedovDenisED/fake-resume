@@ -1,23 +1,27 @@
-# sing-box VLESS + XHTTP на доме
+# sing-box VLESS + WebSocket на доме
+
+Официальный sing-box **не поддерживает xhttp** (это Xray / форки). Используем `ws` — нормально работает с Caddy reverse_proxy и Happ.
 
 Слушает только `10.66.66.1:10000` (AWG-релей). В публичный интернет не публиковать.
 
 ```bash
-# установка sing-box — по официальной инструкции под твою ОС
 sudo mkdir -p /etc/sing-box
 sudo cp sing-box-vless.json /etc/sing-box/config.json
 # подставить UUID и SECRET_PATH (совпадает с Caddyfile)
 uuidgen
+openssl rand -hex 16
+sudo sing-box check -c /etc/sing-box/config.json
 sudo systemctl enable --now sing-box
 sudo systemctl status sing-box
+ss -lntp | grep 10000
 ```
 
 Пример unit (`/etc/systemd/system/sing-box.service`):
 
 ```ini
 [Unit]
-Description=sing-box VLESS XHTTP
-After=network-online.target awg-quick@awg-relay.service
+Description=sing-box VLESS WebSocket
+After=network-online.target
 Wants=network-online.target
 
 [Service]
@@ -31,8 +35,6 @@ LimitNOFILE=1048576
 WantedBy=multi-user.target
 ```
 
-Исходящий трафик после VLESS идёт в `direct` — дальше твоя уже настроенная маршрутизация/AGH/FI на хосте. При необходимости замени outbound на существующий sing-box/xray стек (не входит в скоуп этого репо).
-
 ## Happ (первый клиент вручную)
 
 | Поле | Значение |
@@ -41,13 +43,11 @@ WantedBy=multi-user.target
 | Port | `443` |
 | UUID | из конфига |
 | Encryption | `none` |
-| Transport | `xhttp` |
+| Transport | `ws` |
 | Path | `/REPLACE_SECRET_PATH` |
 | SNI / Host | `resume.sde-lab.ru` |
 | TLS | включён |
 
-Пример share-URI (после подстановки):
-
 ```text
-vless://UUID@resume.sde-lab.ru:443?encryption=none&security=tls&sni=resume.sde-lab.ru&type=xhttp&path=%2FREPLACE_SECRET_PATH#iphone-1
+vless://UUID@resume.sde-lab.ru:443?encryption=none&security=tls&sni=resume.sde-lab.ru&type=ws&host=resume.sde-lab.ru&path=%2FREPLACE_SECRET_PATH#iphone-1
 ```
