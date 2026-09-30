@@ -25,6 +25,8 @@ sudo systemctl reload caddy
 ```bash
 curl -sI https://resume.sde-lab.ru/ | head
 curl -sI "https://resume.sde-lab.ru/wrong-path" | head
+curl -s https://resume.sde-lab.ru/free-space
 ```
 
-Ожидание: лендинг 200; чужой path — 404 от Caddy или лендинг (не ответ xray/sing-box).
+Ожидание: лендинг 200; чужой path — 404 от Caddy или лендинг (не ответ xray/sing-box);
+`/free-space*` — на дом (`10.66.66.1:12817`), например plaintext-схема на `/free-space`.

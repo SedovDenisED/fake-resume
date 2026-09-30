@@ -20,6 +20,16 @@ resume.sde-lab.ru {
 		}
 	}
 
+	# free_parking_space: /free-space* → дом :12817 по AWG
+	handle /free-space* {
+		reverse_proxy 10.66.66.1:12817 {
+			header_up Host {host}
+			header_up X-Forwarded-For {remote_host}
+			header_up X-Real-IP {remote_host}
+			header_up X-Forwarded-Proto {scheme}
+		}
+	}
+
 	handle {
 		# Корень клона ветки facade
 		root * /var/www/resume
