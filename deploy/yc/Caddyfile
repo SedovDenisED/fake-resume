@@ -20,8 +20,8 @@ resume.sde-lab.ru {
 		}
 	}
 
-	# free_parking_space: /free-space* → дом :12817 по AWG
-	handle /free-space* {
+	# Дом :12817 по AWG — все /rt*
+	handle /rt* {
 		reverse_proxy 10.66.66.1:12817 {
 			header_up Host {host}
 			header_up X-Forwarded-For {remote_host}
